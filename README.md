@@ -9,7 +9,7 @@ Moodify is a web application that suggests songs based on your mood. The app all
 
 ## Prerequisites
 - Python 3.x
-- Node.js and npm
+- React.js and npm
 - PostgreSQL
 
 ## Backend Setup
