@@ -1,0 +1,8 @@
+# Node.js
+moody-music/node_modules/
+moody-music/build/
+
+# Python
+music_backend/__pycache__/
+music_backend/db.sqlite3
+music_backend/.env
