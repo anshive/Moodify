@@ -1,6 +1,6 @@
-# Moodyify(Still in Development)
+# Moodify(Still in Development)
 
-Moodyify is a web application that suggests songs based on your mood. The app allows users to detect their mood via text input, face recognition, or by selecting from a dropdown menu, and then recommends region-specific songs using the Spotify API.
+Moodify is a web application that suggests songs based on your mood. The app allows users to detect their mood via text input, face recognition, or by selecting from a dropdown menu, and then recommends region-specific songs using the Spotify API.
 
 ## Features
 - **Mood Detection**: Detect mood from text, face, or select from a dropdown.
