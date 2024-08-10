@@ -17,7 +17,7 @@ Moodify is a web application that suggests songs based on your mood. The app all
 1. **Clone the Repository:**
     ```bash
     git clone <repository-url>
-    cd MoodyMusic/backend
+    cd Moodify/music_backend
     ```
 
 2. **Create a Virtual Environment:**
@@ -58,7 +58,7 @@ Moodify is a web application that suggests songs based on your mood. The app all
 
 1. **Navigate to the Frontend Directory:**
     ```bash
-    cd ../frontend
+    cd ../moody-music
     ```
 
 2. **Install Node Modules:**
