@@ -19,7 +19,6 @@ def get_moods(request):
     serializer = MoodSerializer(moods, many=True)
     return Response(serializer.data)
 
-# Mood Fetching using DropDown
 @api_view(['GET'])
 def get_songs_by_mood(request):
     mood_name = request.GET.get('mood')
@@ -30,7 +29,7 @@ def get_songs_by_mood(request):
         return Response(serializer.data)
     return Response({'error': 'Mood not found'}, status=404)
 
-# Basic Mood Fetching Through Image Upload still in Development
+
 @api_view(['POST'])
 def detect_mood_from_face(request):
     try:
@@ -66,8 +65,8 @@ def detect_mood_from_face(request):
         return JsonResponse({'mood': detected_mood})
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
-
-# Basic Mood Detection using User's Text Input'
+                    
+                    
 @api_view(['POST'])
 def detect_mood_from_text(request):
     try:
@@ -78,13 +77,28 @@ def detect_mood_from_text(request):
         analysis = TextBlob(user_text)
         polarity = analysis.sentiment.polarity
 
-        if polarity > 0:
-            detected_mood = "Happy"
-        elif polarity < 0:
-            detected_mood = "Sad"
+        if polarity >= 0.5:
+            detected_mood = 'Happy'
+        elif polarity >= 0.3 and polarity < 0.5:
+            detected_mood = 'Holidays'
+        elif polarity >= 0.2 and polarity < 0.3:
+            detected_mood = 'Road-trip'
+        elif polarity >= 0.1 and polarity < 0.2:
+            detected_mood = 'Study'
+        elif polarity >= 0.0 and polarity < 0.1:
+            detected_mood = 'Chill'
+        elif polarity >= -0.1 and polarity < 0.0:
+            detected_mood = 'Sleep'
+        elif polarity >= -0.2 and polarity < -0.1:
+            detected_mood = 'Rainy-day'
+        elif polarity >= -0.3 and polarity < -0.2:
+            detected_mood = 'Romance'
+        elif polarity >= -0.5 and polarity < -0.3:
+            detected_mood = 'Sad'
         else:
-            detected_mood = "Neutral"
-
+            detected_mood = 'Party'
+        
         return JsonResponse({'mood': detected_mood})
+    
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
