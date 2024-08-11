@@ -1,110 +1,164 @@
-# Moodify(Still in Development)
+# Moodify
 
-Moodify is a web application that suggests songs based on your mood. The app allows users to detect their mood via text input, face recognition, or by selecting from a dropdown menu, and then recommends region-specific songs using the Spotify API.
+Moodify is a music recommendation app that suggests songs based on your current mood. The app uses facial recognition and text sentiment analysis to detect your mood and then provides you with music that matches it.
 
-## Features
-- **Mood Detection**: Detect mood from text, face, or select from a dropdown.
-- **Spotify Integration**: Fetches mood-based playlists and songs from Spotify.
-- **Region-Specific Recommendations**: Focuses on providing song suggestions from the Indian region.
+**Note:** This app is currently in the development stage.
+
+## Table of Contents
+
+- [Prerequisites](#prerequisites)
+- [Features](#features)
+- [Project Structure](#project-structure)
+  - [Backend (Django)](#backend-django)
+  - [Frontend (React)](#frontend-react)
+- [How It Works](#how-it-works)
+- [Getting Started](#getting-started)
+  - [Step 1: Clone the Project](#step-1-clone-the-project)
+  - [Step 2: Download and Set Up PostgreSQL](#step-2-download-and-set-up-postgresql)
+  - [Step 3: Set Up pgAdmin 4](#step-3-set-up-pgadmin-4)
+  - [Step 4: Update Database Credentials](#step-4-update-database-credentials)
+  - [Step 5: Set Up Spotify Developer Account](#step-5-set-up-spotify-developer-account)
+  - [Step 6: Update Spotify API Credentials](#step-6-update-spotify-api-credentials)
+  - [Step 7: Set Up the Backend](#step-7-set-up-the-backend)
+  - [Step 8: Set Up the Frontend](#step-8-set-up-the-frontend)
+- [Contributing](#contributing)
 
 ## Prerequisites
-- Python 3.x
-- React.js and npm
-- PostgreSQL
 
-## Backend Setup
+Before you begin, ensure you have the following installed on your system:
 
-1. **Clone the Repository:**
-    ```bash
-    git clone <repository-url>
-    cd Moodify/music_backend
-    ```
+- **Python 3.7+**
+- **Node.js 14+**
+- **npm (Node Package Manager)**
+- **PostgreSQL 12+**
+- **Git**
 
-2. **Create a Virtual Environment:**
-    ```bash
-    python -m venv env
-    source env/bin/activate  # On Windows use `env\Scripts\activate`
-    ```
+## Features
 
-3. **Install Dependencies:**
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-4. **Setup PostgreSQL Database:**
-    - Create a PostgreSQL database.
-    - Update the `settings.py` file with your database credentials.
-
-5. **Apply Migrations:**
-    ```bash
-    python manage.py makemigrations
-    python manage.py migrate
-    ```
-
-6. **Create a Superuser:**
-    ```bash
-    python manage.py createsuperuser
-    ```
-
-7. **Populate the Database (Optional):**
-    - You can use Django admin or create a script to populate the moods database.
-
-8. **Run the Backend Server:**
-    ```bash
-    python manage.py runserver
-    ```
-
-## Frontend Setup
-
-1. **Navigate to the Frontend Directory:**
-    ```bash
-    cd ../moody-music
-    ```
-
-2. **Install Node Modules:**
-    ```bash
-    npm install
-    ```
-
-3. **Start the Frontend Server:**
-    ```bash
-    npm start
-    ```
+- **Mood Detection:** Detects your mood through facial expressions or text input.
+- **Music Recommendations:** Suggests songs based on your detected mood.
+- **Spotify Integration:** Uses Spotify API to fetch songs and playlists.
+- **Diverse Genres:** Supports a wide variety of music genres.
+- **Responsive Design:** A user-friendly interface that works across devices.
 
 ## Project Structure
 
-### Backend
+The project is divided into two main parts: the backend (Django) and the frontend (React).
 
-- **Django Project**: Handles user authentication, mood detection logic, and serves the API endpoints.
-- **API Endpoints**:
-  - `/api/detect-text-mood/`: Accepts text input and detects mood.
-  - `/api/detect-face-mood/`: Accepts an image and detects mood using face recognition.
-  - `/api/songs`: Fetches songs based on the detected mood.
+### Backend (Django)
 
-### Frontend
+- **Location:** `Moodify/music_backend`
+- **Role:** Handles mood detection, manages the database, and interacts with the Spotify API.
 
-- **React Components**:
-  - `App.js`: Main container that handles the flow between mood input and song suggestions.
-  - `MoodInput.js`: Allows users to select or input their mood via dropdown, text, or image.
-  - `SongSuggestions.js`: Displays the list of songs fetched based on the selected mood.
-  - **Logic**:
-    - Mood detection logic connects with the backend APIs to fetch detected mood.
-    - Once the mood is detected, the frontend uses the Spotify API to fetch region-specific playlists and songs.
+**Key Components:**
 
-### Spotify Integration
+- `settings.py`: Contains the configuration for the Django project, including database credentials.
+- `views.py`: Contains the logic for mood detection and interacting with the Spotify API.
+- `models.py`: Defines the data models used in the application.
 
-- **Authentication**: The app uses Spotify's client credentials flow to authenticate and retrieve an access token.
-- **Song Fetching**: Based on the detected mood, the app searches for playlists using the Spotify API, and retrieves a list of songs with a focus on the Indian region.
+### Frontend (React)
+
+- **Location:** `Moodify/moody-music`
+- **Role:** Provides the user interface, handles user inputs, and communicates with the backend.
+
+**Key Components:**
+
+- `App.js`: The main component that sets up the app structure and routes.
+- `MoodInput.js`: Handles user input via text or image for mood detection.
+- `SongSuggestions.js`: Fetches and displays the songs based on the detected mood.
+- `apiService.js`: Manages backend and Spotify API API calls.
 
 ## How It Works
 
-1. **User Interaction**: The user selects a mood detection method (dropdown, text, or face).
-2. **Mood Detection**: The input is sent to the backend for mood detection.
-3. **Song Fetching**: The detected mood is used to fetch relevant playlists and songs from Spotify.
-4. **Display Songs**: The fetched songs are displayed to the user, with options to listen on Spotify.
+1. **User Interaction:** The user can input text or upload an image to detect their mood.
+2. **Mood Detection:**
+   - **Text:** The backend analyzes the text using the TextBlob library to determine the mood based on sentiment polarity.
+   - **Image:** The backend uses facial recognition techniques to assess the user's mood.
+3. **Song Recommendation:** Based on the detected mood, the backend calls the Spotify API to fetch playlists and songs that match the mood.
+4. **Display Results:** The frontend displays the recommended songs to the user, allowing them to listen directly through the app.
 
-## Deployment
-For deployment, consider using services like Heroku, AWS, or DigitalOcean for the backend, and Netlify or Vercel for the frontend.
+## Getting Started
 
-## Contribution
-Feel free to contribute by opening issues or submitting pull requests.
+### Step 1: Clone the Project
+
+To get started, clone the repository from GitHub:
+
+```bash
+git clone https://github.com/your-username/moodify.git
+cd moodify
+```
+
+### Step 2: Download and Set Up PostgreSQL
+
+Download PostgreSQL 16 from the [EnterpriseDB website](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads).
+
+### Step 3: Set Up pgAdmin 4
+
+1. Open **pgAdmin 4** from the PostgreSQL folder in your Windows start menu.
+2. Create a new user and set a password during creation.
+3. Create a new database and make sure to set the owner of the database to the user you just created.
+
+### Step 4: Update Database Credentials
+
+1. Navigate to the `Moodify/music_backend` folder in your code editor.
+2. Open the `settings.py` file.
+3. Update the database credentials with your PostgreSQL user, password, and database name.
+
+**Note:** Ensure that the port number of your database matches the configuration in `settings.py`.
+
+### Step 5: Set Up a Spotify Developer Account
+
+1. Create an account at the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/).
+2. Create a new app in your Spotify Developer Dashboard.
+3. Navigate to the settings of your newly created app and copy the **Client ID** and **Client Secret**.
+4. Set the redirect URL for the app to the address where your React app renders in the browser. 
+   - For local development, this would typically be `http://localhost:3000/`.
+   - Add `http://localhost:3000/callback` to the redirect URLs as well.
+
+### Step 6: Update Spotify API Credentials
+
+1. Navigate to `Moodify/moody-music/src/components/apiService.js`.
+2. Replace the placeholder values for **Client ID** and **Client Secret** with your own.
+
+### Step 7: Set Up the Backend
+
+1. Navigate to the `Moodify/music_backend` directory.
+2. Create a virtual environment:
+
+   ```bash
+   python -m venv env
+   source env/bin/activate  # On Windows: env\Scripts\activate
+   ```
+
+3. Install the required dependencies:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. Make migrations and run the server:
+
+   ```bash
+   python manage.py makemigrations
+   python manage.py migrate
+   python manage.py runserver
+   ```
+
+### Step 8: Set Up the Frontend
+
+1. Navigate to the `Moodify/moody-music` directory.
+2. Install the required npm packages:
+
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+
+   ```bash
+   npm start
+   ```
+
+## Contributing
+
+Feel free to contribute to the project. If you have any queries or suggestions, you can reach out to me via email at [your-anshivevasist@gmail.com](mailto:anshivevasist@gmail.com).
