@@ -6,12 +6,12 @@ from .serializers import MoodSerializer, SongSerializer
 import cv2
 import numpy as np
 from django.http import JsonResponse
-from tensorflow.keras.models import load_model
+# from tensorflow.keras.models import load_model
 from rest_framework.decorators import api_view
 import os
 
 model_path = os.path.join(os.path.dirname(__file__), 'models/emotion_model.h5')
-emotion_model = load_model(model_path)
+# emotion_model = load_model(model_path)
 
 @api_view(['GET'])
 def get_moods(request):
