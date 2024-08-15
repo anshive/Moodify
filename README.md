@@ -1,6 +1,6 @@
 # Moodify
 
-Moodify is a music recommendation app that suggests songs based on your current mood. The app uses facial recognition and text sentiment analysis to detect your mood and then provides you with music that matches it.
+Moodify is a music recommendation app that suggests songs based on your current mood. The app uses text sentiment analysis to detect your mood and then provides you with music that matches it.
 
 **Note:** This app is currently in the development stage.
 
@@ -35,7 +35,7 @@ Before you begin, ensure you have the following installed on your system:
 
 ## Features
 
-- **Mood Detection:** Detects your mood through facial expressions or text input.
+- **Mood Detection:** Detects your mood through facial text input.
 - **Music Recommendations:** Suggests songs based on your detected mood.
 - **Spotify Integration:** Uses Spotify API to fetch songs and playlists.
 - **Diverse Genres:** Supports a wide variety of music genres.
@@ -70,12 +70,11 @@ The project is divided into two main parts: the backend (Django) and the fronten
 
 ## How It Works
 
-1. **User Interaction:** The user can input text or upload an image to detect their mood.
+1. **User Interaction:** Users can input text or upload an image to detect their mood.
 2. **Mood Detection:**
    - **Text:** The backend analyzes the text using the TextBlob library to determine the mood based on sentiment polarity.
-   - **Image:** The backend uses facial recognition techniques to assess the user's mood.
 3. **Song Recommendation:** Based on the detected mood, the backend calls the Spotify API to fetch playlists and songs that match the mood.
-4. **Display Results:** The frontend displays the recommended songs to the user, allowing them to listen directly through the app.
+4. **Display Results:** The front end displays the recommended songs to the user, allowing them to listen directly through the app.
 
 ## Getting Started
 
@@ -161,4 +160,4 @@ Download PostgreSQL 16 from the [EnterpriseDB website](https://www.enterprisedb.
 
 ## Contributing
 
-Feel free to contribute to the project. If you have any queries or suggestions, you can reach out to me via email at [your-anshivevasist@gmail.com](mailto:anshivevasist@gmail.com).
+Feel free to contribute to the project. If you have any queries or suggestions, email me at [anshivevasist@gmail.com](mailto:anshivevasist@gmail.com).
