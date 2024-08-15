@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const client_id = 'your-client-id';//add your client id by creating an app in spotify developer dashboard
-const client_secret = 'your-client-secret';//access your client secret in your app settings
+const client_id = 'ypur-client-id';//Your Spotify Client ID
+const client_secret = 'your-client secret';//Your Spotify Client Secret
 
 let accessToken = null;
 
@@ -37,15 +37,18 @@ export const fetchSongsByMood = async (mood) => {
       'Authorization': `Bearer ${accessToken}`
     },
     params: {
-      q: mood,// passing the parameter
-      type: 'playlist',// type of file 'playlist'
-      limit: 2 ,// number of playlists to fetch 
-      market: 'IN'//specific to india still needs changes to add
+      q: mood,
+      type: 'playlist',
+      limit: 5,
+      market: "IN"//Indian Gener Songs 
     }
   });
 
   const playlists = result.data.playlists.items;
   let tracks = [];
+
+  // Keywords to filter out
+  const blockedKeywords = ['happy birthday', 'birthday', 'neutral', 'sad'];
 
   for (let playlist of playlists) {
     const playlistTracks = await axios.get(`https://api.spotify.com/v1/playlists/${playlist.id}/tracks`, {
@@ -53,17 +56,25 @@ export const fetchSongsByMood = async (mood) => {
         'Authorization': `Bearer ${accessToken}`
       },
       params: {
-        limit: 10,// number of songs to fetch from the playlists
-        market: 'IN'// region specific
+        limit: 10
       }
     });
-    tracks = tracks.concat(playlistTracks.data.items.map(item => item.track));
+
+    // Filter out tracks containing blocked keywords
+    const filteredTracks = playlistTracks.data.items.filter(item => {
+      const trackName = item.track.name.toLowerCase();
+      return !blockedKeywords.some(keyword => trackName.includes(keyword));
+    });
+
+    tracks = tracks.concat(filteredTracks.map(item => ({
+      id: item.track.id,
+      title: item.track.name,
+      artist: item.track.artists.map(artist => artist.name).join(', '),
+      url: item.track.external_urls.spotify,
+      albumImageUrl: item.track.album.images[0]?.url
+    })));
   }
 
-  return tracks.map(track => ({
-    id: track.id,
-    title: track.name,
-    artist: track.artists.map(artist => artist.name).join(', '),
-    url: track.external_urls.spotify
-  }));
+  return tracks;
 };
+

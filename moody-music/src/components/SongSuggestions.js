@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { fetchMoods, fetchSongsByMood, authenticateSpotify } from './apiService';
+import React from 'react';
+import {  fetchSongsByMood } from './apiService';
 
 export const fetchSongs = async (mood) => {
   try {
@@ -18,11 +18,19 @@ const SongSuggestions = ({ songs }) => {
       {songs.length > 0 ? (
         <ul>
           {songs.map((song) => (
-            <li key={song.id}>
-              {song.title} by {song.artist} -{' '}
-              <a href={song.url} target="_blank" rel="noopener noreferrer">
-                Listen on Spotify
-              </a>
+            <li key={song.id} style={{ marginBottom: '20px', display: 'flex', alignItems: 'center' }}>
+              {/* Added Image tag */}
+              <img 
+                src={song.albumImageUrl} 
+                alt={`${song.title} album cover`} 
+                style={{ width: '60px', height: '60px', marginRight: '10px' }} 
+              />
+              <div>
+                <strong>{song.title}</strong> by {song.artist} -{' '}
+                <a href={song.url} target="_blank" rel="noopener noreferrer">
+                  Listen on Spotify
+                </a>
+              </div>
             </li>
           ))}
         </ul>
