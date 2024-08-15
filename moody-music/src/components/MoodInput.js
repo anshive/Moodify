@@ -25,13 +25,14 @@ function MoodInput({ onMoodSelect, onSongsFetched }) {
         const response = await axios.post(`${API_BASE_URL}/detect-text-mood/`, { text: textInput });
         mood = response.data.mood;
         console.log(mood)
-      } else if (inputMethod === 'face') {
-        const image = e.target.files[0];
-        const formData = new FormData();
-        formData.append('image', image);
-        const response = await axios.post(`${API_BASE_URL}/detect-face-mood/`, formData);
-        mood = response.data.mood;
-      }
+      } 
+        // else if (inputMethod === 'face') {
+      //   const image = e.target.files[0];
+      //   const formData = new FormData();
+      //   formData.append('image', image);
+      //   const response = await axios.post(`${API_BASE_URL}/detect-face-mood/`, formData);
+      //   mood = response.data.mood;
+      // }
 
       setDetectedMood(mood);
       onMoodSelect(mood);
@@ -66,13 +67,13 @@ function MoodInput({ onMoodSelect, onSongsFetched }) {
           checked={inputMethod === 'text'}
           onChange={() => setInputMethod('text')}
         />
-        <Form.Check
+        {/* <Form.Check
           type="radio"
           label="Face Recognition"
           value="face"
           checked={inputMethod === 'face'}
           onChange={() => setInputMethod('face')}
-        />
+        /> */}
       </Form.Group>
 
       {inputMethod === 'dropdown' && (
@@ -124,12 +125,12 @@ function MoodInput({ onMoodSelect, onSongsFetched }) {
         </Form.Group>
       )}
 
-      {inputMethod === 'face' && (
+      {/* {inputMethod === 'face' && (
         <Form.Group controlId="fileInput">
           <Form.Label>Upload Your Image</Form.Label>
           <Form.Control type="file" accept="image/*" />
         </Form.Group>
-      )}
+      )} */}
 
       <Button variant="primary" type="submit" disabled={isLoading}>
         {isLoading ? 'Loading...' : 'Get Songs'}
